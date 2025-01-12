@@ -1,4 +1,3 @@
-// lib/cubit/login_state.dart
 class LoginState {
   final bool isLoading;
   final bool isSuccess;

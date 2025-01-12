@@ -1,4 +1,3 @@
-// lib/pages/login_page.dart
 import 'package:authendication_app/home/home_page.dart';
 import 'package:authendication_app/login/login_cubit.dart';
 import 'package:authendication_app/login/login_state.dart';
