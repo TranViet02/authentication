@@ -15,5 +15,6 @@ class LoginCubit extends Cubit<LoginState> {
     } else {
       emit(state.failure("Sai tên đăng nhập hoặc mật khẩu"));
     }
+    print("Saved credentials: $credentials");
   }
 }

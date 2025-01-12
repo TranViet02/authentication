@@ -1,5 +1,3 @@
-// lib/pages/register_page.dart
-import 'package:authendication_app/login/login_cubit.dart';
 import 'package:authendication_app/login/login_page.dart';
 import 'package:authendication_app/register/register_cubit.dart';
 import 'package:authendication_app/register/register_state.dart';
@@ -22,10 +20,11 @@ class RegisterPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 20),
               TextField(
                 controller: usernameController,
                 decoration: const InputDecoration(
-                  labelText: "Tên đăng nhập",
+                  labelText: "User name",
                   labelStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
@@ -39,7 +38,7 @@ class RegisterPage extends StatelessWidget {
                 controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  labelText: "Mật khẩu",
+                  labelText: "Password",
                  labelStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
@@ -52,11 +51,7 @@ class RegisterPage extends StatelessWidget {
               listener: (context, state) {
                 if (state.isSuccess) { 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Đăng ký thành công")),
-                  );
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    const SnackBar(content: Text("Register successfully")),
                   );
                 }
                 if (state.errorMessage.isNotEmpty) {
@@ -69,28 +64,55 @@ class RegisterPage extends StatelessWidget {
                 if (state.isLoading) {
                   return const CircularProgressIndicator();
                 }
-                return ElevatedButton(
-                  onPressed: () {
-                    if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu")),
-                      );
-                      return;
-                    }
-
-                    print("Tên đăng nhập: ${usernameController.text}");
-                    print("Mật khẩu: ${passwordController.text}");
-                    context.read<RegisterCubit>().register(
-                      usernameController.text,
-                      passwordController.text,
-                    );
-                  },
-                  child: const Text("Đăng ký"),
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                          backgroundColor: Colors.greenAccent, 
+                          foregroundColor: Colors.black,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 15,  // Đổ bóng
+                          shadowColor: Colors.greenAccent.withOpacity(0.5),
+                        ),
+                      onPressed: () {
+                        if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Please enter full login information")),
+                          );
+                          return;
+                        }
+                        context.read<RegisterCubit>().register(
+                          usernameController.text.trim(),
+                          passwordController.text.trim(),
+                        );
+                      },
+                        child: const Text("Register"),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                          backgroundColor: Colors.blueAccent, 
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 15,  // Đổ bóng
+                          shadowColor: Colors.blueAccent.withOpacity(0.5),
+                        ),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                      },
+                        child: const Text("Login"),
+                      ),
+                  ],
                 );
-              },
-            ),
-
-
+                },
+              ),
             ],
           ),
         ),

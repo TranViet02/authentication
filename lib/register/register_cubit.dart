@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RegisterCubit extends Cubit<RegisterState>{
   RegisterCubit() : super(RegisterState.initial());
 
-    void register(String username, String password) async {
+    void register( String username, String password) async {
       emit(state.loading());
       final existingCredentials = await Account.getUserCredentials();
       if (existingCredentials['username'] == username) {

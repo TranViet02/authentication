@@ -13,11 +13,9 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black12,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: const Center(child: Text("Đăng nhập",style: TextStyle(color: Colors.white),),),
-        backgroundColor: Colors.black12,
       ),
       body: BlocProvider(
         create: (context) => LoginCubit(),
@@ -27,21 +25,10 @@ class LoginPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Expanded(
-                 child: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage('https://itviec.com/blog/wp-content/uploads/2024/05/login-form-html-spotify-vippro.jpeg'), // Link ảnh nền Register
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                               ),
-               ),
-              SizedBox(height: 20,),
               TextField(
                 controller: usernameController,
                 decoration:const InputDecoration(
-                  labelText: "Tên đăng nhập",
+                  labelText: "User name",
                   labelStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
@@ -54,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 controller: passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  labelText: "Mật khẩu",
+                  labelText: "Pasword",
                   labelStyle: TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
@@ -67,7 +54,7 @@ class LoginPage extends StatelessWidget {
                 listener: (context, state) {
                   if (state.isSuccess) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Đăng nhập thành công")),
+                      const SnackBar(content: Text("Login successfully")),
                     );
                     Navigator.pushReplacement(
                       context,
@@ -87,12 +74,29 @@ class LoginPage extends StatelessWidget {
                   return ElevatedButton(
                     onPressed: () {
                       context.read<LoginCubit>().login(
-                        usernameController.text,
-                        passwordController.text,
+                        usernameController.text.trim(),
+                        passwordController.text.trim(),
                       );
                     },
-                    child: const Text("Đăng nhập"),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                      backgroundColor: Colors.blueAccent, 
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 15,  // Đổ bóng
+                      shadowColor: Colors.blueAccent.withOpacity(0.5),
+                    ),
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   );
+
                 },
               ),
               const SizedBox(height: 20),
@@ -103,7 +107,7 @@ class LoginPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => RegisterPage()),
                   );
                 },
-                child: const Text("Chưa có tài khoản? Đăng ký"),
+                child: const Text("Don't have an account? Sign up", style: TextStyle(color: Colors.black, fontSize: 18),),
               ),
             ],
           ),
