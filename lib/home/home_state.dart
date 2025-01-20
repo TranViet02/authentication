@@ -8,8 +8,8 @@ class HomeState {
   });
 
   HomeState copyWith({
-    Duration? remainingTime,
     bool? isRunning,
+    Duration? remainingTime,
   }) {
     return HomeState(
       remainingTime: remainingTime ?? this.remainingTime,

@@ -3,7 +3,7 @@ import 'package:authendication_app/home/home_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeState(remainingTime: const Duration(minutes: 10), isRunning: false));
+  HomeCubit() : super(HomeState(remainingTime: const Duration(minutes: 20), isRunning: false));
 
   Timer? _timer;
 
@@ -16,7 +16,8 @@ class HomeCubit extends Cubit<HomeState> {
         emit(state.copyWith(
           remainingTime: state.remainingTime - const Duration(seconds: 1),
         ));
-      } else {
+      } 
+      else {
         stop(); 
       }
     });

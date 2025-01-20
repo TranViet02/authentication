@@ -1,8 +1,10 @@
 import 'package:authendication_app/home/home_cubit.dart';
 import 'package:authendication_app/home/home_state.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class HomePage extends StatelessWidget {
                         context.read<HomeCubit>().start();
                       }
                     },
-                    child: Text(state.isRunning ? "Stop" : "Start"),
+                    child: Text(state.isRunning ? "Dừng lại" : "Bắt đầu"),
                   );
                 },
               ),

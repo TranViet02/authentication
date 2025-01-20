@@ -1,11 +1,12 @@
 import 'package:authendication_app/base/auth_cubit.dart';
 import 'package:authendication_app/base/auth_state.dart';
 import 'package:authendication_app/login/login_page.dart';
+import 'package:authendication_app/routes/app_router.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// @RoutePage()
+@RoutePage()
 class RegisterPage extends StatelessWidget {
 
   @override
@@ -93,16 +94,16 @@ class RegisterPage extends StatelessWidget {
                     ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                          backgroundColor: Colors.blueAccent, 
+                          backgroundColor: Colors.greenAccent, 
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                           elevation: 15,
-                          shadowColor: Colors.blueAccent.withOpacity(0.5),
+                          shadowColor: Colors.greenAccent.withOpacity(0.5),
                         ),
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                        AutoRouter.of(context).push(const LoginRoute());
                       },
                         child: const Text("Login"),
                       ),

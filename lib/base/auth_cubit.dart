@@ -1,20 +1,21 @@
-import 'package:authendication_app/account.dart';
+import 'package:authendication_app/base/account.dart';
 import 'package:authendication_app/base/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthState.initial());
 
-  String username = '';
-  String password = '';
+  String userName = '';
+  
+  String passWord = '';
 
   void updateUsername(String value) {
-    username = value.trim();
+    userName = value.trim();
      emit(state.copyWith());
   }
 
   void updatePassword(String value) {
-    password = value.trim();
+    passWord = value.trim();
      emit(state.copyWith());
   }
 
@@ -22,12 +23,12 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.loading());
     final existingCredentials = await Account.getUserCredentials();
 
-    if (username.isEmpty || password.isEmpty) {
+    if (userName.isEmpty || passWord.isEmpty) {
       emit(state.failure("Vui lòng nhập đầy đủ thông tin"));
-    } else if (existingCredentials['username'] == username) {
+    } else if (existingCredentials['username'] == userName) {
       emit(state.failure("Tên đăng nhập đã tồn tại"));
     } else {
-      await Account.saveUserCredentials(username, password);
+      await Account.saveUserCredentials(userName, passWord);
       emit(state.success());
     }
   }
@@ -36,9 +37,9 @@ class AuthCubit extends Cubit<AuthState> {
     emit(state.loading());
     final credentials = await Account.getUserCredentials();
 
-    if (username.isEmpty || password.isEmpty) {
+    if (userName.isEmpty || passWord.isEmpty) {
       emit(state.failure("Vui lòng nhập đầy đủ thông tin"));
-    } else if (credentials['username'] == username && credentials['password'] == password) {
+    } else if (credentials['username'] == userName && credentials['password'] == passWord) {
       emit(state.success());
     } else {
       emit(state.failure("Sai tên đăng nhập hoặc mật khẩu"));

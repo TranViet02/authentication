@@ -2,10 +2,12 @@ import 'package:authendication_app/base/auth_cubit.dart';
 import 'package:authendication_app/base/auth_state.dart';
 import 'package:authendication_app/home/home_page.dart';
 import 'package:authendication_app/register/register_page.dart';
+import 'package:authendication_app/routes/app_router.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -70,10 +72,7 @@ class LoginPage extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Đăng nhập thành công!!")),
                   );
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
+                  AutoRouter.of(context).push(const HomeRoute());
                 }
                 if (state.errorMessage.isNotEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -92,13 +91,13 @@ class LoginPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 32, vertical: 12),
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.greenAccent,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
                     elevation: 15,
-                    shadowColor: Colors.blueAccent.withOpacity(0.5),
+                    shadowColor: Colors.green.withOpacity(0.5),
                   ),
                   child: const Text(
                     "Đăng nhập",
@@ -113,10 +112,7 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 20),
             TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
-                );
+               AutoRouter.of(context).push(const RegisterRoute());
               },
               child: const Text(
                 "Bạn không có tài khoản? Đăng ký",
